@@ -13,13 +13,13 @@ app_name: str = os.getenv("APP_NAME", "Clouds Service Discovery API")
 
 logger.debug(f"App started: {app_name}")
 
-prefix: str = os.getenv("URL_PREFIX", "/v1")
+prefix: str = os.getenv("URL_PREFIX", "")
 
 app = FastAPI(
     title=app_name,
     version=__version__,
     openapi_url=f"{prefix}/openapi.json",
-    docs_url=f"{prefix}",
+    docs_url=f"{prefix}/",
 )
 
-app.include_router(api_router, prefix=prefix)
+app.include_router(api_router, prefix=f"{prefix}/v1")
