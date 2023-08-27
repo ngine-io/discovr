@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 30s
+
+scrape_configs:
+  - job_name: cloudscale.ch nodes
+    http_sd_configs:
+      - url: "http://172.17.0.1:8000/api/v1/cloudscale-ch"
+        authorization:
+          credentials: <token>
+          type: Bearer
