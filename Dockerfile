@@ -8,4 +8,6 @@ COPY app /app
 
 EXPOSE 8000/tcp
 
+USER 1001
+
 ENTRYPOINT ["/entrypoint.sh"]
