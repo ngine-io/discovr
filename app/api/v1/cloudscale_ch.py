@@ -1,6 +1,6 @@
 
 
-from typing import List
+from typing import List, Optional
 
 import jmespath
 from cloudscale import Cloudscale, CloudscaleApiException
@@ -46,13 +46,13 @@ security = HTTPBearer(
     },
 
 )
-def cloudscale(token: HTTPAuthorizationCredentials = Depends(security)):
+def cloudscale(filter_tag: Optional[str] = None, token: HTTPAuthorizationCredentials = Depends(security)):
         try:
             client = Cloudscale(
                 api_token=token.credentials,
             )
 
-            instances = client.server.get_all()
+            instances = client.server.get_all(filter_tag=filter_tag)
             instances = jmespath.search(format_json, instances)
 
             result = []
