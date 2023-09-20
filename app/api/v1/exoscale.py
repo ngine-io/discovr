@@ -5,9 +5,9 @@ import requests
 from exoscale_auth import ExoscaleV2Auth
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security.http import HTTPAuthorizationCredentials, HTTPBearer
+from loguru import logger
 from starlette.exceptions import HTTPException
 
-from app.log import logger
 from app.model.exoscale import Zone
 from app.model.sd import Response
 

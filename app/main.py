@@ -2,9 +2,9 @@ import os
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from loguru import logger
 
 from app.api.v1.api import api_router
-from app.log import logger
 from app.version import __version__
 
 load_dotenv(verbose=True)

@@ -6,9 +6,9 @@ import jmespath
 from cloudscale import Cloudscale, CloudscaleApiException
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security.http import HTTPAuthorizationCredentials, HTTPBearer
+from loguru import logger
 from starlette.exceptions import HTTPException
 
-from app.log import logger
 from app.model.sd import Response
 
 router = APIRouter()
