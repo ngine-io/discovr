@@ -48,7 +48,7 @@ security = HTTPBearer(
     },
 
 )
-def exoscale(
+def cloudstack(
     endpiont: str,
     account: Optional[str] = None,
     project_id: Optional[str] = None,
