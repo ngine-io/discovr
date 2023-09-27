@@ -49,7 +49,7 @@ security = HTTPBearer(
 
 )
 def cloudstack(
-    endpiont: str,
+    endpoint: str,
     account: Optional[str] = None,
     project_id: Optional[str] = None,
     vpc_id: Optional[str] = None,
@@ -66,7 +66,7 @@ def cloudstack(
             user, secret = tuple(token.credentials.split(":", 1))
 
             cs = CloudStack(
-                endpoint=endpiont,
+                endpoint=endpoint,
                 key=user,
                 secret=secret,
             )
