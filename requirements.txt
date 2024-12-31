@@ -9,7 +9,7 @@ fastapi==0.115.6
 h11==0.14.0
 idna==3.7
 jmespath==1.0.1
-loguru==0.7.2
+loguru==0.7.3
 pydantic==2.10.4
 pydantic-core==2.27.2
 python-dotenv==1.0.1
