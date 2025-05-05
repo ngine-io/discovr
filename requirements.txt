@@ -11,8 +11,8 @@ h11==0.16.0
 idna==3.7
 jmespath==1.0.1
 loguru==0.7.3
-pydantic==2.11.3
-pydantic-core==2.33.1
+pydantic==2.11.4
+pydantic-core==2.33.2
 python-dotenv==1.1.0
 pytz==2024.1
 requests==2.32.2
