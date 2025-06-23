@@ -6,7 +6,7 @@ click==8.1.7
 cloudscale-sdk==0.7.0
 cs==3.3.1
 exceptiongroup==1.2.2
-fastapi==0.115.12
+fastapi==0.115.13
 h11==0.16.0
 idna==3.7
 jmespath==1.0.1
