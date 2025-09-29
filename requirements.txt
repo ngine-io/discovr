@@ -22,5 +22,5 @@ starlette==0.46.2
 typing-extensions==4.14.0
 typing-inspection==0.4.1
 urllib3==2.5.0
-uvicorn==0.36.0
+uvicorn==0.37.0
 xdg==6.0.0
