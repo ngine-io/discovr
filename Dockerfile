@@ -1,4 +1,4 @@
-FROM docker.io/python:3.13-slim
+FROM docker.io/python:3.14-slim
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
