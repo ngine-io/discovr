@@ -6,7 +6,7 @@ charset-normalizer==3.4.2
 click==8.1.8
 cloudscale-sdk==0.7.0
 cs==3.4.0
-fastapi==0.123.0
+fastapi==0.124.4
 h11==0.16.0
 idna==3.10
 jmespath==1.0.1
