@@ -8,7 +8,7 @@ cloudscale-sdk==0.7.0
 cs==3.4.0
 fastapi==0.135.2
 h11==0.16.0
-idna==3.10
+idna==3.15
 jmespath==1.1.0
 loguru==0.7.3
 pydantic==2.12.5
