@@ -1,15 +1,23 @@
-volumes:
-    prometheus_data: {}
-    grafana_data: {}
-
+---
 services:
+  discovr:
+    build: .
+    image: ghcr.io/ngine-io/discovr:latest
+    ports:
+      - "8000:8000"
 
   prometheus:
     image: prom/prometheus
+    depends_on:
+      - discovr
     volumes:
       - ./sample/:/etc/prometheus/
+      - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--log.level=debug'
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--log.level=debug"
     ports:
-      - 9090:9090
+      - "9090:9090"
+
+volumes:
+  prometheus_data: {}

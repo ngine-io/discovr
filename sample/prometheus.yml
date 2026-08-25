@@ -1,11 +1,74 @@
+---
+# Sample Prometheus configuration scraping node_exporter on instances discovered
+# by discovr. Replace the placeholder credentials, then run `docker compose up`.
 global:
   scrape_interval: 5s
   evaluation_interval: 30s
 
 scrape_configs:
+  # https://www.cloudscale.ch/ — credentials are a read-only API token.
+  # Optional query parameter: filter_tag=<key> or filter_tag=<key>=<value>
   - job_name: cloudscale.ch nodes
     http_sd_configs:
-      - url: "http://172.17.0.1:8000/api/v1/cloudscale-ch"
+      - url: "http://discovr:8000/v1/cloudscale-ch"
         authorization:
-          credentials: <token>
           type: Bearer
+          credentials: "<your-cloudscale-api-token>"
+    relabel_configs:
+      - source_labels: [__meta_cloudscale_name]
+        target_label: instance
+      - source_labels: [__meta_cloudscale_zone]
+        target_label: zone
+      - source_labels: [__meta_cloudscale_flavor]
+        target_label: flavor
+      # Drop everything that is not running.
+      - source_labels: [__meta_cloudscale_status]
+        regex: running
+        action: keep
+
+  # https://www.exoscale.com/ — credentials are <key>:<secret> of a read-only IAM key.
+  # Optional query parameter: zone=<zone> (defaults to ch-gva-2). Add one job per zone.
+  - job_name: exoscale nodes
+    http_sd_configs:
+      - url: "http://discovr:8000/v1/exoscale?zone=ch-gva-2"
+        authorization:
+          type: Bearer
+          credentials: "<your-exoscale-api-key>:<your-exoscale-api-secret>"
+      - url: "http://discovr:8000/v1/exoscale?zone=de-fra-1"
+        authorization:
+          type: Bearer
+          credentials: "<your-exoscale-api-key>:<your-exoscale-api-secret>"
+    relabel_configs:
+      - source_labels: [__meta_exoscale_name]
+        target_label: instance
+      - source_labels: [__meta_exoscale_zone]
+        target_label: zone
+      # Promote the instance label `role` to a Prometheus label.
+      - source_labels: [__meta_exoscale_label_role]
+        target_label: role
+      - source_labels: [__meta_exoscale_state]
+        regex: running
+        action: keep
+
+  # https://cloudstack.apache.org/ — credentials are <key>:<secret> of a read-only API key.
+  # `endpoint` is required. Optional filters: account, project_id, vpc_id, zone_id,
+  # pod_id, name, list_all.
+  - job_name: cloudstack nodes
+    http_sd_configs:
+      - url: "http://discovr:8000/v1/cloudstack?endpoint=https://cloudstack.example.com/client/api&list_all=true"
+        authorization:
+          type: Bearer
+          credentials: "<your-cloudstack-api-key>:<your-cloudstack-api-secret>"
+    relabel_configs:
+      - source_labels: [__meta_cloudstack_name]
+        target_label: instance
+      - source_labels: [__meta_cloudstack_zone]
+        target_label: zone
+      - source_labels: [__meta_cloudstack_account]
+        target_label: account
+      # Promote the instance tag `role` to a Prometheus label.
+      - source_labels: [__meta_cloudstack_tag_role]
+        target_label: role
+      - source_labels: [__meta_cloudstack_state]
+        regex: Running
+        action: keep

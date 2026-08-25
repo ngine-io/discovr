@@ -1,0 +1,32 @@
+---
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pypi:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/discovr-ngine
+    permissions:
+      # Required for PyPI trusted publishing (OIDC).
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - name: Build sdist and wheel
+        run: uv build
+      - name: Check package metadata
+        run: uvx twine check dist/*
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@release/v1
